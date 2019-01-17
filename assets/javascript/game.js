@@ -8,9 +8,9 @@ var WordToGuess = words[Math.floor(Math.random() * words.length)];
 //get the length of the selected word
 var WordLength = WordToGuess.length; 
 
-var amouuntOfGuesses = 20;
+var amouuntOfGuesses = 10;
 var wins = 0;
-
+console.log(WordToGuess);
 var amouuntOfGuessesText = document.getElementById("guessesRemaining");
 var WordGuessText = document.getElementById("word");
 var LettersGuessedText = document.getElementById("guessedLetters");
@@ -20,6 +20,7 @@ var winsText = document.getElementById("wins");
  var fillWord = [WordToGuess];
  var lettersUsed = [];
  var hasdouble = false;
+ var fillWordCompleated;
 
  //sets selected word to be hidden
  for( i = 0; i < WordLength ; i++)
@@ -29,7 +30,6 @@ var winsText = document.getElementById("wins");
 
  //display to screen
  WordGuessText.textContent = fillWord.join(" ");
-console.log(WordToGuess);
 amouuntOfGuessesText.textContent = amouuntOfGuesses;
 winsText.textContent = wins;
 
@@ -74,7 +74,54 @@ document.onkeyup = function(event)
                     
                 }
             }
+            //check if word is guessed for win
+            fillWordCompleated = fillWord.join(""); 
+            
+            if(fillWordCompleated === WordToGuess)
+            {
+                wins++;
+                lettersUsed.length = 0
+                reset();
+            }
+            winsText.textContent = wins;
         }
+        
+    }
+    
+    function reset()
+    {
+        
+        //randomly select one of the words from the array
+        WordToGuess = words[Math.floor(Math.random() * words.length)];
+        
+        //get the length of the selected word
+        WordLength = WordToGuess.length; 
+        
+        amouuntOfGuesses = 10;
+        
+        amouuntOfGuessesText = document.getElementById("guessesRemaining");
+        WordGuessText = document.getElementById("word");
+        LettersGuessedText = document.getElementById("guessedLetters");
+        winsText = document.getElementById("wins");
+        
+        //placeholder array before elements to changed
+        fillWord = [WordToGuess];
+        hasdouble = false;
+        lettersUsed =[];
+        fillWordCompleated = " ";
+    
+        //sets selected word to be hidden
+        for( i = 0; i < WordLength ; i++)
+        {
+            fillWord[i] = " _ ";
+        }   
+    
+        //display to screen
+        WordGuessText.textContent = fillWord.join(" ");
+        amouuntOfGuessesText.textContent = amouuntOfGuesses;
+        LettersGuessedText.textContent = lettersUsed.join(" ");
+        winsText.textContent = wins;
+        console.log(WordToGuess);
+    
     
 }
-// need to increment wins and have the game restart when word is solved.
