@@ -15,6 +15,7 @@ var amouuntOfGuessesText = document.getElementById("guessesRemaining");
 var WordGuessText = document.getElementById("word");
 var LettersGuessedText = document.getElementById("guessedLetters");
 var winsText = document.getElementById("wins");
+var hintText = document.getElementById("hint");
 
 //placeholder array before elements to changed
  var fillWord = [WordToGuess];
@@ -74,20 +75,27 @@ document.onkeyup = function(event)
                     
                 }
             }
+            if(amouuntOfGuesses <= 6)
+            {
+                hintText.textContent = "Hint: Names of Months.";
+            }
             //check if word is guessed for win
             fillWordCompleated = fillWord.join(""); 
             
             if(fillWordCompleated === WordToGuess)
             {
                 wins++;
-                lettersUsed.length = 0
                 reset();
             }
             winsText.textContent = wins;
-        }
+            if(amouuntOfGuesses == 0)
+            {
+                reset();
+            }
+    } 
         
     }
-    
+
     function reset()
     {
         
@@ -109,6 +117,8 @@ document.onkeyup = function(event)
         hasdouble = false;
         lettersUsed =[];
         fillWordCompleated = " ";
+
+        hintText.textContent = "Hint: ";
     
         //sets selected word to be hidden
         for( i = 0; i < WordLength ; i++)
